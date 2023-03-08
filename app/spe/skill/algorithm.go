@@ -22,6 +22,29 @@ func (s *SpeSkillTest) pow(x, y float64) float64 {
 	return math.Pow(x, y)
 }
 
+func (s *SpeSkillTest) FindOutlier(arr []int) interface{} {
+	evenCount := 0
+	oddCount := 0
+	evenNum := 0
+	oddNum := 0
+
+	for _, num := range arr {
+		if num%2 == 0 {
+			evenCount++
+			evenNum = num
+		} else {
+			oddCount++
+			oddNum = num
+		}
+		if evenCount > 1 && oddCount == 1 {
+			return oddNum
+		} else if oddCount > 1 && evenCount == 1 {
+			return evenNum
+		}
+	}
+	return false // no outlier found
+}
+
 func main() {
 	test := SpeSkillTest{}
 
@@ -29,4 +52,8 @@ func main() {
 	fmt.Println(test.IsNarcissistic(153)) // true
 	fmt.Println(test.IsNarcissistic(111)) // false
 
+	// PARITY OUTLIER
+	fmt.Println(test.FindOutlier([]int{2, 4, 0, 100, 4, 11, 2602, 36})) // 11
+	fmt.Println(test.FindOutlier([]int{160, 3, 1719, 19, 11, 13, -21})) // 160
+	fmt.Println(test.FindOutlier([]int{11, 13, 15, 19, 9, 13, -21}))    // false
 }
