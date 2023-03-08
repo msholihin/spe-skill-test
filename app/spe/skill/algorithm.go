@@ -54,6 +54,25 @@ func (s *SpeSkillTest) FindNeedle(haystack []string, needle string) int {
 	return -1 // needle not found
 }
 
+func (s *SpeSkillTest) BlueOcean(list1 []int, list2 []int) []int {
+	result := make([]int, 0)
+	for _, num := range list1 {
+		if !contains(list2, num) {
+			result = append(result, num)
+		}
+	}
+	return result
+}
+
+func contains(list []int, num int) bool {
+	for _, n := range list {
+		if n == num {
+			return true
+		}
+	}
+	return false
+}
+
 func main() {
 	test := SpeSkillTest{}
 
@@ -68,4 +87,8 @@ func main() {
 
 	//NEEDLE IN THE HAYSTACK
 	fmt.Println(test.FindNeedle([]string{"red", "blue", "yellow", "black", "grey"}, "blue")) // 1
+
+	//THE BLUE OCEAN REVERSE
+	fmt.Println(test.BlueOcean([]int{1, 2, 3, 4, 6, 10}, []int{1})) // [2, 3, 4, 6, 10]
+	fmt.Println(test.BlueOcean([]int{1, 5, 5, 5, 5, 3}, []int{5}))  // [1, 3]
 }
